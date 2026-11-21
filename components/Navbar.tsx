@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Download, Menu, X } from "lucide-react";
 import { nav, profile } from "@/data/content";
@@ -8,6 +9,8 @@ import { nav, profile } from "@/data/content";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const isCurrent = (href: string) => !href.includes("#") && pathname.startsWith(href);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -29,13 +32,18 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-page items-center justify-between px-5 sm:px-8">
-        <a href="#home" className="text-base font-semibold tracking-tight" onClick={() => setOpen(false)}>
+        <a href="/#home" className="text-base font-semibold tracking-tight" onClick={() => setOpen(false)}>
           Omm Samal<span className="text-accent">.</span>
         </a>
 
         <nav aria-label="Main" className="hidden items-center gap-7 lg:flex">
           {nav.map((item) => (
-            <a key={item.href} href={item.href} className="text-sm text-muted transition-colors hover:text-text">
+            <a
+              key={item.href}
+              href={item.href}
+              aria-current={isCurrent(item.href) ? "page" : undefined}
+              className={`text-sm transition-colors hover:text-text ${isCurrent(item.href) ? "text-accent" : "text-muted"}`}
+            >
               {item.label}
             </a>
           ))}
@@ -73,7 +81,12 @@ export default function Navbar() {
             <ul className="mx-auto flex max-w-page flex-col px-5 py-3 sm:px-8">
               {nav.map((item) => (
                 <li key={item.href}>
-                  <a href={item.href} className="block py-3 text-lg text-text" onClick={() => setOpen(false)}>
+                  <a
+                    href={item.href}
+                    aria-current={isCurrent(item.href) ? "page" : undefined}
+                    className={`block py-3 text-lg ${isCurrent(item.href) ? "text-accent" : "text-text"}`}
+                    onClick={() => setOpen(false)}
+                  >
                     {item.label}
                   </a>
                 </li>

@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Projects from "@/components/Projects";
 import BackToTop from "@/components/BackToTop";
+import ArcadeTeaser from "@/components/ArcadeTeaser";
 import MotionProvider from "@/components/MotionProvider";
 import { About, Skills, Experience, Education, Achievements, Contact, Footer } from "@/components/Sections";
 
@@ -17,6 +18,7 @@ export default function Home() {
         <About />
         <Skills />
         <Projects />
+        <ArcadeTeaser />
         <Experience />
         <Education />
         <Achievements />

@@ -22,3 +22,33 @@ h1, h2, h3 { text-wrap: balance; }
   html { scroll-behavior: auto; }
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+/* ---------- Arcade ---------- */
+:root {
+  --tile-correct: #2E9E5B;
+  --tile-present: #B8912A;
+  --tile-absent: #3A3F48;
+}
+.tile-done { background: var(--tile-final); }
+.tile-reveal { animation: tile-flip 520ms ease both; }
+.row-shake { animation: row-shake 420ms ease; }
+.tile-pop { display: inline-block; animation: tile-pop 120ms ease-out; }
+
+@keyframes tile-flip {
+  0% { transform: rotateX(0deg); background: transparent; border-color: rgba(154, 163, 175, 0.6); }
+  49% { transform: rotateX(90deg); background: transparent; border-color: rgba(154, 163, 175, 0.6); }
+  50% { transform: rotateX(90deg); background: var(--tile-final); border-color: transparent; }
+  100% { transform: rotateX(0deg); background: var(--tile-final); border-color: transparent; }
+}
+@keyframes row-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+@keyframes tile-pop {
+  0% { transform: scale(0.8); }
+  100% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile-reveal, .row-shake, .tile-pop { animation: none !important; }
+}

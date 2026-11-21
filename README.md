@@ -19,6 +19,13 @@ components/
   BackToTop.tsx   Floating back-to-top button
   MotionProvider.tsx  Reduced-motion support and scroll reveal
   icons.tsx       GitHub and LinkedIn marks
+  ArcadeTeaser.tsx  Homepage section linking to the arcade
+  arcade/         Dev Arcade screens (dashboard, games, shared parts)
+app/arcade/       Arcade routes: /arcade, /arcade/wordle, /arcade/guess-the-output,
+                  /arcade/debug-it, /arcade/snake
+lib/arcade/       Arcade game logic, separate from the UI (see below)
+scripts/
+  test-arcade.ts  Unit tests for the arcade logic
 data/
   content.ts      ALL text, links and project data. Edit this to update the site.
 public/
@@ -34,6 +41,24 @@ npm install        # install dependencies (once)
 npm run dev        # development server at http://localhost:3000
 npm run build      # production build
 npm start          # serve the production build
+```
+
+## Omm's Dev Arcade
+
+Four games at `/arcade`: Tech Wordle (daily puzzle and practice), Guess the Output, Debug It and Snake, with shared XP, levels, streaks and badges.
+
+- `lib/arcade/words.ts`: Wordle answers. Add new words at the end of the list so earlier daily puzzles keep their answers.
+- `lib/arcade/questionBank.ts`: Guess the Output questions. Append an object with a unique `id`.
+- `lib/arcade/debugBank.ts`: Debug It challenges. Append an object with a unique `id`.
+- `lib/arcade/progress.ts`: XP values, levels and badges.
+- `lib/arcade/daily.ts`: the daily puzzle changes at midnight India time, the same moment for every visitor.
+
+Progress is stored in each visitor's browser (localStorage). There is no shared leaderboard; that would need a backend and a database.
+
+Run the logic tests with:
+
+```bash
+npx tsx scripts/test-arcade.ts
 ```
 
 ## Things to update
